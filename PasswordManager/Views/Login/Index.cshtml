@@ -1,0 +1,36 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Login";
+}
+
+<div class="container vh-100">
+    <div class="row" style="justify-content: center; align-items: center; height: 100%; flex-direction: column;">
+        <div class="col-6">
+            <h4 class="text-center mb-4 ">Kullanıcı Girişi</h4>
+            <form method="post" asp-controller="Login" asp-action="Login">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <input asp-for="Email" type="text" placeholder="Kullanıcı Adı" class="form-control">
+                </div>
+                <div class="form-group pt-3">
+                    <input asp-for="Password" type="password" placeholder="Şifre" class="form-control">
+                </div>
+                <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                    <div class="form-group">
+                        <a href="User/GetList">Şifremi Unuttum?</a>
+
+                    </div>
+                </div>
+                <div>
+                    @ViewBag.error
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </div>
+
+            </form>
+            <a class="btn btn-primary" asp-controller="User" asp-action="Add" >Kayıt Ol</a>
+        </div>
+    </div>
+</div>
