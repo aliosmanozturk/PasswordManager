@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PasswordManager.Database;
 using PasswordManager.Models;
 
@@ -7,40 +7,49 @@ namespace PasswordGenerator.Controllers
     public class UserController : Controller
     {
         private IFirebaseDal<User> _firebaseDal = new FirebaseDal<User>();
-        public async  Task<IActionResult> GetList()
+        public async  Task<IActionResult> Index()
         {
             var list = await _firebaseDal.GetList();
-            return View(list.Data);
+            return View("Index",list.Data);
         }
         public IActionResult Add()
         {
+            ViewBag.CustomTitle = "Kullanıcı Ekle";
+            ViewBag.Action = "Add";
             return View();
+        }
+        public IActionResult Register()
+        {
+            ViewBag.CustomTitle = "Kayıt Ol";
+            ViewBag.Action = "Add";
+            return View("Add");
         }
         [HttpPost]
         public async Task<IActionResult> Add(User model)
         {
-            if (ModelState.IsValid)
-            {
-                model.Id = Guid.NewGuid().ToString();
-                await _firebaseDal.Add(model);
-                return View("GetList");
-            }
-            else
-            {
-                return View(model);
-            }
-            
+            model.Id = Guid.NewGuid().ToString();
+            await _firebaseDal.Add(model);
+            return await Index();
+
+        }
+        public async Task<IActionResult> Update(string id)
+        {
+            ViewBag.CustomTitle = "Güncelle";
+            ViewBag.Action = "Update";
+            var user = await _firebaseDal.GetById(id);
+            return View("Add",user.Data);
         }
         [HttpPost]
         public async Task<IActionResult> Update(User model)
         {
             await _firebaseDal.Update(model);
-            return View("GetList");
+            return await Index();
         }
-        [HttpPost]
-        public IActionResult Delete(LoginModel model)
+        public async Task<IActionResult> Delete(string id)
         {
-            return View("GetList");
+            var user = await _firebaseDal.GetById(id);
+            await _firebaseDal.Delete(user.Data);
+            return await Index();
         }
         
     }

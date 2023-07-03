@@ -1,27 +1,55 @@
-﻿@model User
+﻿@model PasswordManager.Models.User
+
 @{
-    ViewData["Title"] = "Kayıt Ol";
-    Layout = "_Login";
+    ViewData["Title"] = "Add";
+    if (ViewBag.CustomTitle == "Kayıt Ol")
+    {
+        Layout = "_Login";
+    }
 }
 
-<div class="container vh-100">
+
     <div class="row" style="justify-content: center; align-items: center; height: 100%; flex-direction: column;">
         <div class="col-6">
-            <h4 class="text-center mb-4 ">Kayıt Ol</h4>
-            <form method="post" asp-controller="User" asp-action="Add">
+        <h1>@ViewBag.CustomTitle</h1>
+            <hr />
+            <form asp-action="@ViewBag.Action">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (Model != null)
+                {
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" disabled/>
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                }
+               
                 <div class="form-group">
-                    <input asp-for="Name" type="text" placeholder="Adı Soyadı" class="form-control">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input asp-for="Email" type="text" placeholder="Email" class="form-control">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input asp-for="Password" type="password" placeholder="Şifre" class="form-control">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                <div class="form-group">
+                    <input type="submit" value="Kaydet" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
     </div>
-</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

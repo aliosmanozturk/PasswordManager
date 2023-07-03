@@ -21,7 +21,10 @@
                 <td>@user.Name</td>
                 <td>@user.Email</td>
                 <td>@user.Password</td>
-                <td><a asp-controller="User" asp-action="Add" class="btn btn-primary">Düzenle</a></td>
+                <td>
+                    <a asp-controller="User" asp-action="Update" asp-route-id="@user.Id" class="btn btn-primary">Düzenle</a>
+                    <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-primary">Sil</a>
+                </td>
             </tr>
         }
 
