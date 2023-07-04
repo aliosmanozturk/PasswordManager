@@ -2,28 +2,15 @@
 
 @{
     ViewData["Title"] = "Add";
-    if (ViewBag.CustomTitle == "Kayıt Ol")
-    {
-        Layout = "_Login";
-    }
 }
 
 
     <div class="row" style="justify-content: center; align-items: center; height: 100%; flex-direction: column;">
         <div class="col-6">
-        <h1>@ViewBag.CustomTitle</h1>
+            <h1>Kullanıcı Ekle</h1>
             <hr />
-            <form asp-action="@ViewBag.Action">
+            <form asp-action="Add">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                @if (Model != null)
-                {
-                    <div class="form-group">
-                        <label asp-for="Id" class="control-label"></label>
-                        <input asp-for="Id" class="form-control" disabled/>
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                }
-               
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control"/>
@@ -40,7 +27,7 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Kaydet" class="btn btn-primary"/>
+                    <input type="submit" value="Create" class="btn btn-primary"/>
                 </div>
             </form>
         </div>

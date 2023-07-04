@@ -2,26 +2,21 @@
 using PasswordManager.Database;
 using PasswordManager.Models;
 
-namespace PasswordGenerator.Controllers
+namespace PasswordManager.Controllers
 {
-    public class UserController : Controller
+    public class CategoryController : Controller
     {
-        private IFirebaseDal<User> _firebaseDal = new FirebaseDal<User>();
-        public async  Task<IActionResult> Index()
+        private IFirebaseDal<Category> _firebaseDal = new FirebaseDal<Category>();
+        public async Task<IActionResult> Index()
         {
             var list = await _firebaseDal.GetList();
-            return View("Index",list.Data);
+            return View("Index", list.Data);
         }
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return View();
         }
-        public IActionResult Register()
-        {
-            
-            return View();
-        }
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> Edit(string id)
         {
             var user = await _firebaseDal.GetById(id);
             return View(user.Data);
@@ -33,20 +28,18 @@ namespace PasswordGenerator.Controllers
             return await Index();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(User model)
+        public async Task<IActionResult> Create(Category model)
         {
             model.Id = Guid.NewGuid().ToString();
             await _firebaseDal.Add(model);
             return await Index();
         }
-       
+
         [HttpPost]
-        public async Task<IActionResult> Update(User model)
+        public async Task<IActionResult> Edit(Category model)
         {
             await _firebaseDal.Update(model);
             return await Index();
         }
-       
-        
     }
 }
