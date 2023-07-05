@@ -1,14 +1,12 @@
 
 
+using System.ComponentModel.DataAnnotations;
+
 namespace PasswordManager.Models
 {
     public class Passwords
     {
-        public Passwords(string password)
-        {
-            Password = password;
-        }
-
+        public string Id { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
         public string UserName { get; set; }

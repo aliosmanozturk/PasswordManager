@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using PasswordManager.Database;
 using PasswordManager.Models;
+using System.Web;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PasswordManager.Controllers
 {
