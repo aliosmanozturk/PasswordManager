@@ -10,10 +10,9 @@ namespace PasswordGenerator.Controllers
     {
         private IUserDal _userDal;
 
-
-        public UserController(IUserDal userDal)
+        public UserController()
         {
-            _userDal = userDal;
+            _userDal = new EfUserDal();
         }
 
         public async  Task<IActionResult> Index()

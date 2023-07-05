@@ -20,11 +20,10 @@ namespace PasswordManager.Controllers
         private IPasswordsDal _passwordsDal;
         private ICategoryDal _categoryDal;
 
-
-        public HomeController(IPasswordsDal passwordsDal, ICategoryDal categoryDal)
+        public HomeController()
         {
-            _passwordsDal = passwordsDal;
-            _categoryDal = categoryDal;
+            _passwordsDal = new EfPasswordsDal();
+            _categoryDal = new EfCategoryDal();
         }
 
         public async Task<IActionResult> Index()

@@ -10,10 +10,9 @@ namespace PasswordManager.Controllers
     {
         private ICategoryDal _categoryDal;
 
-
-        public CategoryController(ICategoryDal categoryDal)
+        public CategoryController()
         {
-            _categoryDal = categoryDal;
+            _categoryDal = new EfCategoryDal();
         }
 
         public async Task<IActionResult> Index()
