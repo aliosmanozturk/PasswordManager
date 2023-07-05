@@ -31,8 +31,18 @@ namespace PasswordManager.Controllers
             var list = await _passwordsDal.GetList();
             return View("Index", list.Data);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var categories = await _categoryDal.GetList();
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            foreach (var category in categories.Data)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = category.Name;
+                item.Value = category.Id;
+                selectList.Add(item);
+            }
+            ViewBag.SelectList = selectList;
             PasswordGenerator.PasswordGenerator pwdGen1 = new PasswordGenerator.PasswordGenerator();
             ViewBag.password = pwdGen1.Next();
             return View();
@@ -51,6 +61,8 @@ namespace PasswordManager.Controllers
                 selectList.Add(item);
             }
             ViewBag.SelectList = selectList;
+            PasswordGenerator.PasswordGenerator pwdGen1 = new PasswordGenerator.PasswordGenerator();
+            ViewBag.password = pwdGen1.Next();
             var user = await _passwordsDal.GetById(id);
             return View(user.Data);
         }
