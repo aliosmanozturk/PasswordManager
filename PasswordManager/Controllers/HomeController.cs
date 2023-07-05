@@ -9,26 +9,27 @@ using System.Security.Cryptography.Xml;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PasswordManager.Database.Firebase;
+using PasswordManager.Database.Repository.CategoryRepository;
+using PasswordManager.Database.Repository.PasswordsRepository;
 
 namespace PasswordManager.Controllers
 {
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private IFirebaseDal<Passwords> _firebaseDal; 
-        private IFirebaseDal<Category> _categoryDal; 
+        private IPasswordsDal _passwordsDal;
+        private ICategoryDal _categoryDal;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(IPasswordsDal passwordsDal, ICategoryDal categoryDal)
         {
-            _logger = logger;
-            _firebaseDal = new FirebaseDal<Passwords>();
-            _categoryDal = new FirebaseDal<Category>();
+            _passwordsDal = passwordsDal;
+            _categoryDal = categoryDal;
         }
 
         public async Task<IActionResult> Index()
         {
-            var list = await _firebaseDal.GetList();
+            var list = await _passwordsDal.GetList();
             return View("Index", list.Data);
         }
         public IActionResult Create()
@@ -51,27 +52,27 @@ namespace PasswordManager.Controllers
                 selectList.Add(item);
             }
             ViewBag.SelectList = selectList;
-            var user = await _firebaseDal.GetById(id);
+            var user = await _passwordsDal.GetById(id);
             return View(user.Data);
         }
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await _firebaseDal.GetById(id);
-            await _firebaseDal.Delete(user.Data);
+            var user = await _passwordsDal.GetById(id);
+            await _passwordsDal.Delete(user.Data);
             return await Index();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Passwords model)
         {
             model.Id = Guid.NewGuid().ToString();
-            await _firebaseDal.Add(model);
+            await _passwordsDal.Add(model);
             return await Index();
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(Passwords model)
         {
-            await _firebaseDal.Update(model);
+            await _passwordsDal.Update(model);
             return await Index();
         }
     }

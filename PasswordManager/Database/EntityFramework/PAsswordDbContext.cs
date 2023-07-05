@@ -5,7 +5,7 @@ using PasswordManager.Models;
 
 namespace PasswordManager.Database.EntityFramework
 {
-    public class PAsswordDbContext:DbContext
+    public class PasswordDbContext:DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

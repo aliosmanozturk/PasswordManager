@@ -1,10 +1,21 @@
+using Autofac;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using PasswordManager.Database.DependencyResolvers.Autofac;
+using PasswordManager.Database.Repository.CategoryRepository;
+using PasswordManager.Database.Repository.PasswordsRepository;
+using PasswordManager.Database.Repository.UserRepository;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterType<EfUserDal>().As<IUserDal>();
+    builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+    builder.RegisterType<EfPasswordsDal>().As<IPasswordsDal>();
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 builder.Services.AddAuthentication()
     .AddCookie(options =>
     {
