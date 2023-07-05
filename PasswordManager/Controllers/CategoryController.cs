@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PasswordManager.Database;
+using PasswordManager.Database.Firebase;
 using PasswordManager.Models;
 
 namespace PasswordManager.Controllers

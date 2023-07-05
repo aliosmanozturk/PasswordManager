@@ -4,14 +4,14 @@ using PasswordManager.Models;
 using System.Collections.Generic;
 using System.Security.Cryptography.Xml;
 
-namespace PasswordManager.Database
+namespace PasswordManager.Database.Firebase
 {
     public class FirebaseDal<T> : IFirebaseDal<T> where T : class, new()
     {
         private FirestoreDb db;
         public FirebaseDal()
         {
-            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", Path.Combine(Directory.GetCurrentDirectory(), "passwordgenerator-d7fcf-firebase-adminsdk-rybae-e1076c5b67.json"));
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", Path.Combine(Directory.GetCurrentDirectory(), "passwordgenerator-d7fcf-firebase-adminsdk-rybae-e1076c5b67.json"));
             db = FirestoreDb.Create("passwordgenerator-d7fcf");
         }
 

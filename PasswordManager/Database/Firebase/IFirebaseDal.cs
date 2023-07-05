@@ -1,7 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using PasswordManager.Models;
 
-namespace PasswordManager.Database
+namespace PasswordManager.Database.Firebase
 {
     public interface IFirebaseDal<T>
     {

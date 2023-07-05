@@ -8,7 +8,7 @@ using static Google.Cloud.Firestore.V1.StructuredQuery.Types;
 using System.Security.Cryptography.Xml;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PasswordManager.Database;
+using PasswordManager.Database.Firebase;
 
 namespace PasswordManager.Controllers
 {
